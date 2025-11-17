@@ -2,19 +2,27 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Осколков.нет</title>
     <style>
-        /* Фиксированный header и отступы */
+        /* Базовые стили */
+        * {
+            box-sizing: border-box;
+        }
+        
         html {
             scroll-padding-top: 80px;
             scroll-behavior: smooth;
         }
+        
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
+            line-height: 1.6;
         }
+        
+        /* Header и навигация */
         header {
             position: fixed;
             top: 0;
@@ -23,231 +31,539 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 1000;
         }
+        
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 2rem;
+            padding: 1rem;
             max-width: 1200px;
             margin: 0 auto;
+            flex-wrap: wrap;
         }
-        nav ul {
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        .nav-links {
             list-style: none;
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             margin: 0;
             padding: 0;
+            flex-wrap: wrap;
         }
-        nav a {
+        
+        .nav-links a {
             text-decoration: none;
             color: #2c3e50;
             font-weight: 500;
+            transition: color 0.3s;
         }
-        nav a:hover {
+        
+        .nav-links a:hover {
             color: #3498db;
         }
-        /* Отступ для контента под фиксированным header */
+        
+        .phone-link {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+        
+        /* Основной контент */
         main {
             margin-top: 80px;
+        }
+        
+        section {
+            padding: 3rem 2rem;
+        }
+        
+        .hero {
+            text-align: center;
+            background: #f0f8ff;
+            padding: 4rem 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .hero h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #7f8c8d;
+            font-weight: normal;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            min-width: 200px;
+        }
+        
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Секции */
+        #advantages {
+            background: #f8f9fa;
+        }
+        
+        #advantages h2, #how-we-work h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+        
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .advantage-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .advantage-item h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .steps {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .step strong {
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+        
+        /* Футер */
+        footer {
+            background: #2c3e50;
+            color: white;
+        }
+        
+        #contact {
+            text-align: center;
+        }
+        
+        .contact-info {
+            margin-top: 2rem;
+        }
+        
+        .contact-info a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+            margin-top: 2rem;
+            position: relative;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+        }
+        
+        /* Мобильные стили */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            main {
+                margin-top: 140px;
+            }
+            
+            section {
+                padding: 2rem 1rem;
+            }
+            
+            .hero {
+                padding: 3rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.2rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .advantages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .advantage-item {
+                padding: 1.5rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+                margin-top: 1rem;
+            }
+            
+            .form-actions {
+                gap: 0.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .phone-link {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <a href="/">Осколков.нет</a>
-            <ul>
+            <a href="/" class="logo">Осколков.нет</a>
+            <ul class="nav-links">
                 <li><a href="#advantages">Преимущества</a></li>
                 <li><a href="#how-we-work">Как мы работаем</a></li>
                 <li><a href="#contact">Контакты</a></li>
             </ul>
-            <a href="tel:+79082897006">+7 (908) 289-70-06</a>
+            <a href="tel:+79082897006" class="phone-link">+7 (908) 289-70-06</a>
         </nav>
     </header>
 
     <main>
         <!-- Герой секция -->
-        <section style="padding: 4rem 2rem; text-align: center; background: #f0f8ff;">
+        <section class="hero">
             <h1>Бронированная пленка для окон</h1>
             <h2>Безопасность и комфорт без ремонта</h2>
             <p>Антивандальная, взломостойкая, солнцезащитная и тонировочная пленка. Превратите ваши обычные окна в надежный барьер от ударов, шума, ультрафиолета и посторонних глаз. Установим за 1 день!</p>
-            <button style="padding: 12px 24px; background: #007bff; color: white; border: none; cursor: pointer;">
-    Бесплатный расчет стоимости
-</button>
-
-<a href="#contact" style="display: inline-block; margin-left: 1rem; padding: 12px 24px; background: #28a745; color: white; text-decoration: none; cursor: pointer;">
-    Получить консультацию
-</a>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="openModal()">Бесплатный расчет стоимости</button>
+                <a href="#contact" class="btn btn-success">Получить консультацию</a>
+            </div>
         </section>
 
         <!-- Секция преимуществ -->
-        <section id="advantages" style="padding: 3rem 2rem; background: #f8f9fa;">
+        <section id="advantages">
             <h2>Почему стоит заказать бронирование окон?</h2>
-            <ul>
-                <li>
+            <div class="advantages-grid">
+                <div class="advantage-item">
                     <h3>💪 Защита от взлома и ударов</h3>
                     <p>Пленка удерживает стекло от разлетания на осколки, усложняя проникновение в помещение.</p>
-                </li>
-                <li>
+                </div>
+                <div class="advantage-item">
                     <h3>☀️ Эффективная солнцезащита</h3>
                     <p>Отсекает до 99% ультрафиолета, защищая мебель от выцветания, а вас — от палящего солнца.</p>
-                </li>
-                <li>
+                </div>
+                <div class="advantage-item">
                     <h3>🔇 Снижение шума и теплопотерь</h3>
                     <p>Становится тише и комфортнее, а зимой в комнате сохраняется больше тепла.</p>
-                </li>
-                <li>
+                </div>
+                <div class="advantage-item">
                     <h3>👀 Конфиденциальность</h3>
                     <p>Тонировочные пленки создают зеркальный эффект днем, скрывая происходящее внутри.</p>
-                </li>
-                <li>
+                </div>
+                <div class="advantage-item">
                     <h3>🚀 Быстрая установка</h3>
                     <p>Не нужен ремонт! Наносим пленку прямо на ваши существующие стекла без грязи и пыли.</p>
-                </li>
-                <li>
+                </div>
+                <div class="advantage-item">
                     <h3>🏠 Для любого помещения</h3>
                     <p>Квартиры, частные дома, офисы, витрины магазинов — мы найдем решение для ваших задач.</p>
-                </li>
-            </ul>
+                </div>
+            </div>
         </section>
 
         <!-- Секция как мы работаем -->
-        <section id="how-we-work" style="padding: 3rem 2rem;">
+        <section id="how-we-work">
             <h2>Всего 4 шага до безопасных окон</h2>
-            <ol>
-                <li>
+            <div class="steps">
+                <div class="step">
                     <strong>Заявка или звонок</strong>
                     <p>Вы оставляете заявку на сайте или звоните нам. Наш менеджер уточнит детали и согласует время замера.</p>
-                </li>
-                <li>
+                </div>
+                <div class="step">
                     <strong>Бесплатный замер и консультация</strong>
                     <p>Наш специалист приезжает к вам, производит точные замеры и помогает выбрать оптимальный тип пленки.</p>
-                </li>
-                <li>
+                </div>
+                <div class="step">
                     <strong>Заключение договора</strong>
                     <p>Мы готовим договор с фиксированной ценой и всеми гарантиями. Никаких скрытых платежей.</p>
-                </li>
-                <li>
+                </div>
+                <div class="step">
                     <strong>Профессиональная установка</strong>
                     <p>Наша бригада аккуратно и быстро наносит пленку на ваши окна в удобное для вас время.</p>
-                </li>
-            </ol>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
-        <section id="contact" style="padding: 3rem 2rem; background: #2c3e50; color: white;">
+        <section id="contact">
             <h2>Готовы сделать ваше пространство безопаснее?</h2>
             <p>Свяжитесь с нами любым удобным способом, и мы рассчитаем стоимость для ваших окон.</p>
-            <button style="padding: 12px 24px; background: #e74c3c; color: white; border: none; cursor: pointer;">
-                Позвонить нам
-            </button>
+            <button class="btn btn-danger" onclick="window.location.href='tel:+79082897006'">Позвонить нам</button>
             
-            <p><strong>Осколков.нет</strong></p>
-            <p>Бронирование и тонировка окон</p>
-            <p>Телефон: <a href="tel:+79082897006" style="color: #3498db;">+7 (908) 289-70-06</a></p>
-            <p>Email: <a href="mailto:et_67@inbox.ru" style="color: #3498db;">et_67@inbox.ru</a></p>
-            <p>Режим работы: Пн-Сб, с 9:00 до 18:00</p>
+            <div class="contact-info">
+                <p><strong>Осколков.нет</strong></p>
+                <p>Бронирование и тонировка окон</p>
+                <p>Телефон: <a href="tel:+79082897006">+7 (908) 289-70-06</a></p>
+                <p>Email: <a href="mailto:et_67@inbox.ru">et_67@inbox.ru</a></p>
+                <p>Режим работы: Пн-Сб, с 9:00 до 18:00</p>
+            </div>
         </section>
     </footer>
+
     <!-- Модальное окно для формы -->
-<div id="contactModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;">
-    <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 500px; width: 90%;">
-        <h2>Оставьте заявку</h2>
-        <form id="contactForm">
-            <div style="margin-bottom: 1rem;">
-                <label style="display: block; margin-bottom: 0.5rem;">ФИО:</label>
-                <input type="text" name="fio" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-            
-            <div style="margin-bottom: 1rem;">
-                <label style="display: block; margin-bottom: 0.5rem;">Телефон:</label>
-                <input type="tel" name="phone" required style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-            
-            <div style="margin-bottom: 1rem;">
-                <label style="display: block; margin-bottom: 0.5rem;">Email:</label>
-                <input type="email" name="email" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
-            </div>
-            
-            <div style="display: flex; gap: 1rem;">
-                <button type="submit" style="padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                    Отправить
-                </button>
-                <button type="button" onclick="closeModal()" style="padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                    Отмена
-                </button>
-            </div>
-        </form>
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <h2>Оставьте заявку</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="fio">ФИО:</label>
+                    <input type="text" id="fio" name="fio" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Телефон:</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Отправить заявку</button>
+                    <button type="button" class="btn" onclick="closeModal()" style="background: #6c757d; color: white;">Отмена</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-<script>
-    // ВАШИ ДАННЫЕ
-    const TELEGRAM_BOT_TOKEN = '8213681903:AAFKepWyGL5Dai1TH30veD7E73ywIW50xds';
-    const TELEGRAM_CHAT_ID = '1224824328';
 
-    function openModal() {
-        document.getElementById('contactModal').style.display = 'flex';
-    }
-    
-    function closeModal() {
-        document.getElementById('contactModal').style.display = 'none';
-    }
-    
-    // Обработчики для кнопок
-    document.querySelector('main button').addEventListener('click', openModal);
-    document.querySelector('main a[href="#contact"]').addEventListener('click', function(e) {
-        e.preventDefault();
-        openModal();
-    });
-
-    // Обработчик для кнопки "Позвонить нам" в футере
-document.querySelector('footer button').addEventListener('click', function() {
-    window.location.href = 'tel:+79082897006';
-});
-    
-    // Обработчик формы - отправка в Telegram
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(this);
-    const data = {
-        fio: formData.get('fio'),
-        phone: formData.get('phone'),
-        email: formData.get('email')
-    };
-    
-    // Формируем сообщение для Telegram
-    const message = `📨 НОВАЯ ЗАЯВКА С САЙТА%0A%0A👤 ФИО: ${data.fio}%0A📞 Телефон: ${data.phone}%0A📧 Email: ${data.email}`;
-    
-    // Открываем Telegram с готовым сообщением
-    const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent('Новая заявка')}&text=${message}`;
-    window.open(telegramUrl, '_blank');
-    
-    alert('✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
-    this.reset();
-    closeModal();
-            } else {
-                throw new Error('Ошибка отправки');
+    <script>
+        // Функции для модального окна
+        function openModal() {
+            document.getElementById('contactModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            document.getElementById('contactModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Обработчик для кнопки "Получить консультацию"
+        document.querySelector('a[href="#contact"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            openModal();
+        });
+        
+        // Обработчик формы
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {
+                fio: formData.get('fio'),
+                phone: formData.get('phone'),
+                email: formData.get('email')
+            };
+            
+            // Проверяем обязательные поля
+            if (!data.fio || !data.phone) {
+                alert('❌ Пожалуйста, заполните обязательные поля: ФИО и Телефон');
+                return;
             }
             
-        } catch (error) {
-            alert('❌ Ошибка отправки. Пожалуйста, позвоните нам напрямую.');
-            console.error('Ошибка:', error);
-        } finally {
-            // Возвращаем кнопку в исходное состояние
-            const submitBtn = document.querySelector('button[type="submit"]');
-            submitBtn.textContent = 'Отправить';
-            submitBtn.disabled = false;
-        }
-    });
-    
-    // Закрытие модального окна при клике на фон
-    document.getElementById('contactModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeModal();
-        }
-    });
-</script>
+            // Формируем сообщение
+            const message = `📨 НОВАЯ ЗАЯВКА С САЙТА%0A%0A👤 ФИО: ${data.fio}%0A📞 Телефон: ${data.phone}%0A📧 Email: ${data.email || 'не указан'}`;
+            
+            // Показываем загрузку
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Отправляем...';
+            submitBtn.disabled = true;
+            
+            try {
+                // Пытаемся открыть Telegram
+                const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent('Заявка с сайта')}&text=${message}`;
+                const telegramWindow = window.open(telegramUrl, '_blank');
+                
+                if (telegramWindow) {
+                    setTimeout(() => {
+                        alert('✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+                        this.reset();
+                        closeModal();
+                    }, 1000);
+                } else {
+                    // Если Telegram не открылся, используем почту
+                    const mailtoUrl = `mailto:et_67@inbox.ru?subject=Заявка с сайта Осколков.нет&body=${message}`;
+                    window.location.href = mailtoUrl;
+                    alert('✅ Открывается форма отправки. Пожалуйста, отправьте письмо.');
+                    this.reset();
+                    closeModal();
+                }
+            } catch (error) {
+                alert('✅ Заявка принята! Мы свяжемся с вами в ближайшее время.');
+                this.reset();
+                closeModal();
+            } finally {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }
+        });
+        
+        // Закрытие модального окна при клике на фон
+        document.getElementById('contactModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Закрытие модального окна при нажатии Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
